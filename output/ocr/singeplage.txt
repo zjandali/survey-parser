@@ -1,0 +1,28 @@
+
+Q2.3 What is the main speciality of the Investigator : 
+
+ [ ] General Practitioner / Primary Care Physician 
+ [X] Pulmonologist 
+ [ ] Allergist 
+ [ ] Pediatric allergist 
+ [ ] Pediatric pulmonologist 
+ [ ] Pediatrician 
+ [ ] Other 
+
+SECTION 3: PATIENT INTEREST 
+
+FOR EFC17354 
+
+Q3.1 Do you see a significant burden in the study design which could discourage the patients to 
+participate? (link) 
+
+ [X] C No 
+ [ ] Yes 
+
+Q3.2 Is the study burden, procedures , number of visits etc acceptable to sites recruiting 
+adolescents? 
+
+ [X] Yes 
+ [ ] No 
+<<<
+

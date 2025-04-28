@@ -1,0 +1,55 @@
+{
+  "sections": [
+    {
+      "title": null,
+      "questions": [
+        {
+          "id": "Q2.3",
+          "text": "What is the main speciality of the Investigator :",
+          "options": [
+            "General Practitioner / Primary Care Physician",
+            "Pulmonologist",
+            "Allergist",
+            "Pediatric allergist",
+            "Pediatric pulmonologist",
+            "Pediatrician",
+            "Other"
+          ],
+          "selected": [
+            "Pulmonologist"
+          ],
+          "_page_num": 1
+        }
+      ]
+    },
+    {
+      "title": "SECTION 3: PATIENT INTEREST FOR EFC17354",
+      "questions": [
+        {
+          "id": "Q3.1",
+          "text": "Do you see a significant burden in the study design which could discourage the patients to \nparticipate? (link)",
+          "options": [
+            "No",
+            "Yes"
+          ],
+          "selected": [
+            "No"
+          ],
+          "_page_num": 1
+        },
+        {
+          "id": "Q3.2",
+          "text": "Is the study burden, procedures , number of visits etc acceptable to sites recruiting \nadolescents?",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "selected": [
+            "Yes"
+          ],
+          "_page_num": 1
+        }
+      ]
+    }
+  ]
+}

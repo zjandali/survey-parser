@@ -1,0 +1,183 @@
+--- EXTRACTION PROMPT FOR CHUNK CENTERED ON PAGE 1 ---
+
+
+    You are an expert at analyzing survey data from OCR-processed documents.
+
+    Your task is to extract all questions and answers from the following survey text chunk in a structured format.
+    
+    This is a chunk of text (chunk_1) that may span across page boundaries.
+    The chunk contains content from multiple pages with '<<<' markers indicating page breaks.
+    
+
+    IMPORTANT CHUNK PROCESSING INSTRUCTIONS:
+    - This chunk may contain content from multiple pages
+    - The '<<<' markers indicate page breaks
+    - Pay special attention to questions and answers that span across these page break markers
+    - When you see a question right before a '<<<' marker, look for its answer right after the marker
+    - When you see an answer at the beginning of the chunk (before any question), it likely belongs to a question from the previous page
+
+    CRITICAL SPATIAL AWARENESS INSTRUCTIONS:
+    - Survey forms often have complex layouts where answers don't always appear directly below or beside their questions
+    - Scan the ENTIRE document space including headers, footers, margins, and floating elements for potential answers
+    - Pay special attention to:
+      * Headers/letterheads (often contain institution/company names, dates, ID numbers)
+      * Floating text boxes/fields (may contain answers to questions that appear elsewhere)
+      * Text in different columns that may be related
+      * Information in margins or page corners
+      * Titles and subtitles that contain relevant information
+    - Be aware that some answers may appear visually separated from their questions in the original form
+    - For questions asking about names, addresses, dates, or identifiers, check page headers and document metadata
+    - Match answers to questions based on context and content, not just proximity
+    - When dealing with page breaks ('<<<'), remember that important contextual information might be split across pages
+
+    For each question:
+    1. Extract the question ID (e.g., Q2.3, Q3.1) if present. If no ID is explicitly shown, generate a sequential one.
+    2. Extract the complete question text, including any asterisks (*) that denote required fields.
+    3. Identify all possible answer options.
+    4. Determine which answer was selected based on:
+       - Checkboxes: Look for [X], ☑, or similar marks
+       - Radio buttons: Look for filled circles or selected options
+       - Text fields: Extract the text entered
+       - Multiple selections: If multiple options are checked, include ALL of them as a list
+    5. Identify any section headers or organizational elements.
+
+    Very important rules:
+    - Pay special attention to cases where a question appears right before a '<<<' marker and its answer appears right after it
+    - Look for standalone answers at the top of a chunk that might belong to questions from the previous page
+    - For isolated answers like "2+" or "Yes" that appear at the start of the chunk, try to match them to the last question that appears in the previous section (before the first '<<<' marker)
+    - For questions at the end of the chunk (after the last '<<<' marker) that don't have answers, mark them as "[INCOMPLETE]"
+    - If there are multiple checked boxes for a question, include all selected options as an array
+    - For free-text responses, include the complete answer text
+
+    Format your response in JSON structure as follows:
+    ```json
+    {
+      "sections": [
+        {
+          "title": "Section Title",
+          "questions": [
+            {
+              "id": "Q1.1",
+              "text": "Full question text",
+              "options": ["Option 1", "Option 2", "Option 3"],
+              "selected": "Option 2"
+            },
+            {
+              "id": "Q1.2",
+              "text": "Multiple-select question text",
+              "options": ["Option A", "Option B", "Option C", "Option D"],
+              "selected": ["Option A", "Option C"]
+            },
+            ...
+          ]
+        },
+        ...
+      ]
+    }
+    ```
+
+    If a question appears incomplete, extract what you can and indicate with "[INCOMPLETE]" in the text field.
+    If something is ambiguous, indicate this with "[UNCLEAR]".
+
+    Here is the OCR text chunk to analyze:
+
+    
+Q2.3 What is the main speciality of the Investigator : 
+
+ [ ] General Practitioner / Primary Care Physician 
+ [X] Pulmonologist 
+ [ ] Allergist 
+ [ ] Pediatric allergist 
+ [ ] Pediatric pulmonologist 
+ [ ] Pediatrician 
+ [ ] Other 
+
+SECTION 3: PATIENT INTEREST 
+
+FOR EFC17354 
+
+Q3.1 Do you see a significant burden in the study design which could discourage the patients to 
+participate? (link) 
+
+ [X] C No 
+ [ ] Yes 
+
+Q3.2 Is the study burden, procedures , number of visits etc acceptable to sites recruiting 
+adolescents? 
+
+ [X] Yes 
+ [ ] No 
+<<<
+    
+
+
+
+--- PROVIDER CLASSIFICATION PROMPT ---
+
+You're evaluating a survey document to identify which platform or software created it.
+
+TASK: Analyze the OCR text from this document and identify the survey provider.
+
+ALLOWED RESPONSES - Choose exactly ONE of these:
+- SURVEY_MONKEY
+- GOOGLE_FORMS
+- QUALTRICS
+- PDF
+- MICROSOFT_WORD
+- MICROSOFT_FORMS
+- NULL
+
+KEY INDICATORS TO LOOK FOR:
+- URLs containing domains like "surveymonkey.com", "forms.office.com", "forms.microsoft.com", "docs.google.com/forms", or "qualtrics.com"
+- Copyright notices or footers mentioning any of these providers
+- Provider-specific layouts, question formatting, or styling patterns, provider name in the document
+- Branding elements or logos from these platforms
+
+IMPORTANT DISTINCTIONS:
+- Microsoft Forms will specifically have a forms.office.com URL or Microsoft Forms branding
+- Look for file paths with .doc or .docx extensions which indicate Microsoft Word documents
+
+DOCUMENT DETAILS:
+This is a .PDF document.
+
+DOCUMENT OCR TEXT:
+
+Q2.3 What is the main speciality of the Investigator : 
+
+ [ ] General Practitioner / Primary Care Physician 
+ [X] Pulmonologist 
+ [ ] Allergist 
+ [ ] Pediatric allergist 
+ [ ] Pediatric pulmonologist 
+ [ ] Pediatrician 
+ [ ] Other 
+
+SECTION 3: PATIENT INTEREST 
+
+FOR EFC17354 
+
+Q3.1 Do you see a significant burden in the study design which could discourage the patients to 
+participate? (link) 
+
+ [X] C No 
+ [ ] Yes 
+
+Q3.2 Is the study burden, procedures , number of visits etc acceptable to sites recruiting 
+adolescents? 
+
+ [X] Yes 
+ [ ] No 
+<<<
+
+
+
+INSTRUCTIONS:
+1. Respond with ONLY ONE of the allowed values listed above
+2. Do not include any explanations, additional text, or punctuation
+3. Only classify as "MICROSOFT_FORMS" if you see clear evidence of Microsoft Forms (forms.office.com URLs or Microsoft Forms branding)
+4. The presence of checkboxes or form elements alone is NOT sufficient to classify as Microsoft Forms
+5. If you find file paths containing .doc or .docx, this strongly indicates MICROSOFT_WORD
+6. If you find no specific platform indicators, respond with "PDF" for PDF files or "MICROSOFT_WORD" for Word documents
+7. If you can't determine anything at all, respond with "NULL"
+
+Your response:

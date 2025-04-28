@@ -1,0 +1,24 @@
+{
+  "entries": [
+    {
+      "question": "What is the main speciality of the Investigator :",
+      "answers": [
+        "Pulmonologist"
+      ]
+    },
+    {
+      "question": "Do you see a significant burden in the study design which could discourage the patients to \nparticipate? (link)",
+      "answers": [
+        "No"
+      ]
+    },
+    {
+      "question": "Is the study burden, procedures , number of visits etc acceptable to sites recruiting \nadolescents?",
+      "answers": [
+        "Yes"
+      ]
+    }
+  ],
+  "provider": "PDF",
+  "id": "dd9ed1cd-2ae9-4e6a-8197-f0678c60551f"
+}

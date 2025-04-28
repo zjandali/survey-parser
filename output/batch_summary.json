@@ -1,0 +1,12 @@
+{
+  "success": [
+    "single/singeplage.pdf"
+  ],
+  "failed": [],
+  "skipped": [],
+  "elapsed_time": 30.16015601158142,
+  "success_count": 1,
+  "failed_count": 0,
+  "skipped_count": 0,
+  "total_count": 1
+}
